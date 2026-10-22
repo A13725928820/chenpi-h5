@@ -1,0 +1,21 @@
+{
+  "name": "supply-demand-board",
+  "version": "1.0.0",
+  "description": "银洲汇合信息供需平台 - 信息发布 + 站内沟通",
+  "main": "backend/server.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node backend/server.js",
+    "old-server": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.11.2",
+    "multer": "^2.4.0",
+    "socket.io": "^4.8.1"
+  }
+}

@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: yinzhouhuihe-supply-demand
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node backend/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # 可选：配置 MongoDB Atlas 免费层连接串，不配则使用内存存储（重启清空）
+      # - key: MONGODB_URI
+      #   value: mongodb+srv://<user>:<password>@<cluster>.mongodb.net/supply_board?retryWrites=true&w=majority
+      # 可选：真实微信登录（不配则走演示 mock）
+      # - key: WECHAT_APPID
+      #   value: your_appid
+      # - key: WECHAT_SECRET
+      #   value: your_secret

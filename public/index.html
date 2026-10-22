@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>供需告示墙 · 信息对接平台</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand" onclick="goList()">
+        <span class="logo">📢</span>
+        <div>
+          <h1>供需告示墙</h1>
+          <p class="tagline">只做信息对接，不碰交易、不担保、不托管</p>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <div class="nickname-box">
+          <label>我的称呼</label>
+          <input id="nicknameInput" type="text" maxlength="20" placeholder="输入你的称呼" />
+        </div>
+        <button class="btn primary" onclick="openCreate()">+ 发帖</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- 列表页 -->
+    <section id="listView" class="view">
+      <div class="toolbar">
+        <div class="tabs">
+          <button class="tab active" data-type="all">全部</button>
+          <button class="tab" data-type="supply">供应</button>
+          <button class="tab" data-type="demand">需求</button>
+        </div>
+        <div class="search">
+          <input id="searchInput" type="text" placeholder="搜索标题、描述或分类…" />
+          <button onclick="loadPosts()">搜索</button>
+        </div>
+      </div>
+      <div id="postList" class="post-grid"></div>
+      <div id="emptyTip" class="empty-tip" style="display:none;">暂无相关帖子，来发第一条吧～</div>
+    </section>
+
+    <!-- 详情页 -->
+    <section id="detailView" class="view" style="display:none;">
+      <button class="btn ghost back-btn" onclick="goList()">← 返回列表</button>
+      <div class="detail-layout">
+        <div class="post-detail">
+          <div id="postDetailContent"></div>
+        </div>
+        <div class="chat-panel">
+          <div class="chat-header">
+            <h3>💬 站内沟通</h3>
+            <span class="chat-tip">平台仅提供沟通，交易请自行线下处理</span>
+          </div>
+          <div id="chatMessages" class="chat-messages"></div>
+          <div class="chat-input-area">
+            <input id="chatInput" type="text" maxlength="500" placeholder="输入消息…" />
+            <button class="btn primary" onclick="sendMessage()">发送</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 发帖弹窗 -->
+  <div id="createModal" class="modal" style="display:none;">
+    <div class="modal-mask" onclick="closeCreate()"></div>
+    <div class="modal-content">
+      <h2>发布供需信息</h2>
+      <div class="form-row">
+        <label>类型 <span class="req">*</span></label>
+        <div class="radio-row">
+          <label><input type="radio" name="postType" value="supply" checked /> 供应（我有）</label>
+          <label><input type="radio" name="postType" value="demand" /> 需求（我要）</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <label>标题 <span class="req">*</span></label>
+        <input id="fTitle" type="text" maxlength="80" placeholder="一句话描述" />
+      </div>
+      <div class="form-row">
+        <label>详细描述 <span class="req">*</span></label>
+        <textarea id="fDesc" maxlength="2000" rows="4" placeholder="补充细节、成色、数量、要求等"></textarea>
+      </div>
+      <div class="form-row two-col">
+        <div>
+          <label>分类</label>
+          <input id="fCategory" type="text" maxlength="20" placeholder="如：数码/运动/服务" />
+        </div>
+        <div>
+          <label>价格</label>
+          <input id="fPrice" type="text" maxlength="30" placeholder="如：12000 或 面议" />
+        </div>
+      </div>
+      <div class="form-row two-col">
+        <div>
+          <label>称呼 <span class="req">*</span></label>
+          <input id="fContact" type="text" maxlength="20" placeholder="你的称呼" />
+        </div>
+        <div>
+          <label>地区</label>
+          <input id="fLocation" type="text" maxlength="30" placeholder="如：北京·海淀" />
+        </div>
+      </div>
+      <div class="notice">
+        ⚠️ 本平台仅发布供需信息、提供站内沟通，不参与交易、不担保、不托管资金。请自行核实并线下/私下完成交易，风险自担。
+      </div>
+      <div class="modal-actions">
+        <button class="btn ghost" onclick="closeCreate()">取消</button>
+        <button class="btn primary" onclick="submitPost()">发布</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
